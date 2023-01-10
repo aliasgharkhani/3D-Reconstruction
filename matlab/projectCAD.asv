@@ -1,0 +1,30 @@
+load("../data/PnP.mat", 'X', 'cad', 'image', 'x');
+P = estimate_pose(x, X);
+[K, R, t] = estimate_params(P);
+estimated_x = P * [X;ones(1, size(X, 2))];
+estimated_x = estimated_x ./ estimated_x(3, :);
+imshow(image);
+hold on;
+plot(estimated_x(1, :)', estimated_x(2, :)', '.r');
+plot(x(1, :)', x(2, :)', 'ob');
+hold off;
+figure;
+vertices = (cad.vertices*R');
+trimesh(cad.faces, vertices(:, 1), vertices(:, 2), vertices(:, 3));
+
+
+
+
+
+
+
+
+
+
+
+
+
+cad_model = cad;
+cad_model.vertices = cad.vertices * R';
+figure;
+trimesh(cad_model.faces, cad_model.vertices(:, 1), cad_model.vertices(:, 2), cad_model.vertices(:, 3), ‘facecolor’, ‘y’, ‘EdgeColor’,‘k’);

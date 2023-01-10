@@ -1,0 +1,15 @@
+function dispM = get_disparity(im1, im2, maxDisp, windowSize)
+% GET_DISPARITY creates a disparity map from a pair of rectified images im1 and
+%   im2, given the maximum disparity MAXDISP and the window size WINDOWSIZE.
+dispM = zeros(size(im1));
+[height, width] = size(im1);
+w = round((windowSize-1)/2);
+for y=1:height
+    for x=1:width
+        for d=0:min(max(x-w-, 0), maxDisp)
+            dist(im1, im2, [x, y], [x-d, y], w)
+
+        end
+    end
+
+end
